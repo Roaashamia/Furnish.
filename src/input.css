@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6b1e1e; /* خمري غامق – اللون الأساسي */
+  --color-secondary: #a44a3f; /* خمري فاتح دافئ */
+  --color-accent: #d4af37; /* ذهبي ناعم */
+  --color-background-secondary: #f4ede4;
+  --color-background: #f4ede4; /* كريمي فاتح للخلفية */
+  --color-third: #ead7c3; /* بيج فاتح لسكشنات ثانوية */
+  --color-text: #3b2f2f; /* بني رمادي غامق للنصوص */
+  --color-border: #c9b69c; /* لون حدود خفيف مائل للذهبي */
+}

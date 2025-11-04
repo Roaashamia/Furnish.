@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>تفاصيل المنتج</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+
+    <link rel="stylesheet" href="../dist/output.css" />
+    <link rel="stylesheet" href="../src/input.css" />
+  </head>
+  <body>
+    <nav
+      class="flex flex-row items-center md:justify-center justify-between px-4 py-2 bg-background w-full"
+    >
+      <div
+        class="flex w-1/5 flex-row gap-0 items-center justify-center cursor-pointer text-primary font-bold text-xl"
+      >
+        Furnish
+        <span class="text-text">•</span>
+      </div>
+      <div
+        class="links md:flex hidden flex-row items-center justify-center gap-4 w-3/5 capitalize text-lg"
+      >
+        <a href="../index.html" class="hover:text-primary transition-all"
+          >Home</a
+        >
+        <a href="" class="hover:text-primary transition-all">About</a>
+        <a href="" class="hover:text-primary transition-all">Contact</a>
+      </div>
+      <div
+        class="flex flex-row items-center md:justify-center justify-end gap-2 md:w-1/5 w-1/2 capitalize text-lg"
+      >
+        <svg
+          className="w-6 font-bold h-6 text-primary"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            stroke-width="3"
+            d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+          />
+        </svg>
+        <svg
+          className="w-6 font-bold h-6 text-primary"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-width="3"
+            d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+          />
+        </svg>
+        <svg
+          class="w-7 h-7 text-primary md:hidden inline-block"
+          id="menu-btn"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="3"
+            d="M5 7h14M5 12h14M5 17h14"
+          />
+        </svg>
+        <button
+          class="md:inline-block hidden rounded-md text-base bg-primary cursor-pointer hover:bg-transparent border border-transparent hover:border-primary text-white hover:text-primary transition-all font-bold px-5 text-center py-2"
+        >
+          sign up
+        </button>
+      </div>
+      <div
+        id="sidebar"
+        class="fixed top-0 right-0 h-full w-3/5 bg-primary z-50 text-background flex-col gap-6 py-6 hidden transition-all duration-200"
+      >
+        <button
+          id="close-btn"
+          class="text-2xl mx-2 self-end border rounded-sm cursor-pointer w-10 h-10 flex items-center justify-center border-background hover:bg-background transition-all hover:text-primary"
+        >
+          x
+        </button>
+
+        <a
+          href="../index.html"
+          class="text-third bg-transparent hover:bg-third hover:text-text transition-all p-2 w-full font-bold"
+          >Home</a
+        >
+        <a
+          href="#"
+          class="text-third bg-transparent hover:bg-third hover:text-text transition-all p-2 w-full font-bold"
+          >About</a
+        >
+        <a
+          href="#"
+          class="text-third bg-transparent hover:bg-third hover:text-text transition-all p-2 w-full font-bold"
+          >Services</a
+        >
+        <a
+          href="#"
+          class="text-third bg-transparent hover:bg-third hover:text-text transition-all p-2 w-full font-bold"
+          >Contact</a
+        >
+      </div>
+    </nav>
+
+    <main>
+      <div
+        id="product-container"
+        class="w-11/12 mx-auto my-4 min-h-96 flex flex-col md:flex-row gap-6"
+      ></div>
+    </main>
+    <footer class="bg-primary text-background py-10 px-6 md:px-16">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10"
+      >
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-accent mb-3">Furniture</h2>
+          <p class="text-third max-w-sm leading-relaxed">
+            Bringing you closer to your dream home, one click at a time.
+            Discover furniture crafted for comfort and elegance.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap flex-1 justify-between gap-6 text-sm">
+          <div class="flex flex-col gap-2 min-w-[120px]">
+            <h3 class="font-semibold text-accent text-lg mb-1">About</h3>
+            <a href="#" class="hover:text-accent">Our Story</a>
+            <a href="#" class="hover:text-accent">Careers</a>
+            <a href="#" class="hover:text-accent">Team</a>
+            <a href="#" class="hover:text-accent">Blog</a>
+          </div>
+
+          <div class="flex flex-col gap-2 min-w-[120px]">
+            <h3 class="font-semibold text-accent text-lg mb-1">Support</h3>
+            <a href="#" class="hover:text-accent">Help Center</a>
+            <a href="#" class="hover:text-accent">Contact</a>
+            <a href="#" class="hover:text-accent">Terms</a>
+            <a href="#" class="hover:text-accent">Privacy</a>
+          </div>
+
+          <div class="flex flex-col gap-2 min-w-[120px]">
+            <h3 class="font-semibold text-accent text-lg mb-1">Social</h3>
+            <a href="#" class="hover:text-accent">Instagram</a>
+            <a href="#" class="hover:text-accent">Facebook</a>
+            <a href="#" class="hover:text-accent">Twitter</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-border my-8"></div>
+
+      <div class="text-center text-sm text-third">
+        © 2025 Dwello. All rights reserved.
+      </div>
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script src="./details.js"></script>
+</html>
