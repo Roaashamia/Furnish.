@@ -11,96 +11,105 @@ closeBtn.addEventListener("click", () => {
     sidebar.classList.remove("flex");
     sidebar.classList.add("hidden");
 });
-const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
+const listOfProducts = document.getElementById('listOfProducts');
+const paginationContainer = document.getElementById('pagination');
 
-async function getData() {
-    try {
-        const res = await fetch(`https://dummyjson.com/products/5`);
-        if (!res.ok) throw new Error("error 404");
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+let currentPage = 1;
+const limit = 10;
+let totalProducts = 0;
+let totalPages = 0;
+
+async function getData(page = 1) {
+    const skip = (page - 1) * limit;
+    const res = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
+    const data = await res.json();
+    totalProducts = data.total;
+    totalPages = Math.ceil(totalProducts / limit);
+    return data.products;
 }
 
-async function main() {
-    const product = await getData();
-    renderProductDetails(product);
-}
-main();
+function createProductElement(product) {
+    const container = document.createElement('div');
+    container.className = "flex flex-col w-[300px] border border-[#eee] min-h-[410px] rounded-2xl shadow-md hover:shadow-[0_0_6px_#6b2400] transition duration-300";
 
-function renderProductDetails(product) {
-    const container = document.getElementById('product-container');
-
-    if (!product) {
-        container.innerHTML = `
-      <div class="text-center text-red-600 text-xl w-full py-20">
-        No details Now
-      </div>`;
-        return;
-    }
-
-    container.innerHTML = `
-    <div class="flex flex-col md:flex-row items-center gap-10 w-full md:w-10/12 lg:w-9/12">
-
-      <div class="flex-1 flex flex-col items-center">
-        <img id="mainImage" 
-             src="${product.images?.[0]}" 
-             alt="${product.title}" 
-             class="rounded-2xl drop-shadow-2xl w-full max-w-md object-cover mb-4">
-        <div id="thumbnailsContainer" class="flex flex-wrap justify-center gap-2"></div>
-      </div>
-
-      <!-- التفاصيل -->
-      <div class="flex-1 flex flex-col gap-4 text-text">
-        <span class="inline-block border border-accent text-accent text-sm px-3 py-1 rounded-full capitalize w-fit">
-          ${product.category}
-        </span>
-
-        <h1 class="text-3xl md:text-4xl font-bold text-primary">${product.title}</h1>
-        <div class="flex items-baseline gap-3">
-          <span class="text-2xl font-bold text-accent">$${product.price}</span>
-          <span class="text-sm line-through text-secondary">
-            $${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
-          </span>
-          <span class="text-sm text-red-600">${product.discountPercentage}% off</span>
-        </div>
-
-        <p class="text-text leading-relaxed">${product.description}</p>
-
-        <div class="flex flex-wrap gap-3 text-sm mt-2">
-          <span class="bg-third px-3 py-1 rounded-md">⭐ ${product.rating}</span>
-          <span class="bg-third px-3 py-1 rounded-md">📦 ${product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span>
-          <span class="bg-third px-3 py-1 rounded-md">🏷️ ${product.brand}</span>
-        </div>
-
-        <button class="mt-6 bg-primary text-background font-semibold px-6 py-3 rounded-lg hover:bg-secondary transition-all w-fit">
-          Buy Now
-        </button>
-
-        <div class="mt-4 text-sm text-text border-t border-border pt-3 flex flex-col gap-1">
-          <span><strong>SKU:</strong> ${product.sku}</span>
-          <span><strong>Return policy:</strong> ${product.returnPolicy}</span>
-          <span><strong>Shipping:</strong> ${product.shippingInformation}</span>
-          <span><strong>Warranty:</strong> ${product.warrantyInformation}</span>
-        </div>
-      </div>
-
-    </div>
-  `;
-
-    const thumbnailsContainer = document.getElementById('thumbnailsContainer');
-    product.images.forEach(img => {
-        const thumb = document.createElement('img');
-        thumb.src = img;
-        thumb.alt = product.title;
-        thumb.className = 'w-20 h-20 object-cover rounded-md cursor-pointer border border-border hover:border-accent transition-all';
-        thumb.addEventListener('click', () => {
-            document.getElementById('mainImage').src = img;
-        });
-        thumbnailsContainer.appendChild(thumb);
+    const img = document.createElement('img');
+    img.className = "w-auto h-52 py-4 mx-auto cursor-pointer object-cover object-center rounded-t-2xl max-w-full";
+    img.src = product.images[0];
+    img.addEventListener('click', () => {
+        window.location.href = `./products/details.html?id=${product?.id}`;
     });
+
+    const content = document.createElement('div');
+    content.className = "flex flex-col justify-between rounded-xl flex-1 p-5 gap-2";
+
+    const title = document.createElement('h2');
+    title.className = "text-primary text-xl font-bold capitalize";
+    title.innerText = product.title;
+
+    const desc = document.createElement('p');
+    desc.className = "text-sm text-text leading-relaxed overflow-hidden text-ellipsis line-clamp-2";
+    desc.innerText = product.description;
+
+    const actionContainer = document.createElement('div');
+    actionContainer.className = "flex items-center justify-between mt-2";
+
+    const price = document.createElement('span');
+    price.className = "text-amber-400 font-semibold text-lg";
+    price.innerText = `${product.price} $`;
+
+    const buttons = document.createElement('div');
+    buttons.className = "flex items-center gap-3";
+
+    const btnCart = document.createElement('button');
+    btnCart.innerText = "Add to Cart";
+    btnCart.className = "p-2 rounded-full border text-secondary text-sm font-bold border-border hover:bg-third hover:border-third hover:text-secondary transition";
+    btnCart.addEventListener('click', () => handleAddToCart(product));
+
+    const btnFav = document.createElement('button');
+    btnFav.innerText = "♡";
+    btnFav.className = "p-2 rounded-full border border-third text-secondary bg-third hover:bg-primary font-bold hover:border-primary hover:text-background transition";
+    btnFav.addEventListener('click', () => handleAddToFav(product));
+
+    buttons.appendChild(btnCart);
+    buttons.appendChild(btnFav);
+
+    actionContainer.appendChild(price);
+    actionContainer.appendChild(buttons);
+
+    content.appendChild(title);
+    content.appendChild(desc);
+    content.appendChild(actionContainer);
+
+    container.appendChild(img);
+    container.appendChild(content);
+
+    return container;
 }
+
+function renderProducts(products) {
+    listOfProducts.innerHTML = "";
+    products.forEach(p => {
+        const el = createProductElement(p);
+        listOfProducts.appendChild(el);
+    });
+    renderPagination();
+}
+
+function renderPagination() {
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.innerText = i;
+        pageBtn.className = `px-3 py-1 border cursor-pointer rounded-xl ${i === currentPage ? 'bg-primary text-white' : 'bg-white text-black'}`;
+        pageBtn.addEventListener('click', () => loadPage(i));
+        paginationContainer.appendChild(pageBtn);
+    }
+}
+
+async function loadPage(page) {
+    currentPage = page;
+    const data = await getData(page);
+    renderProducts(data);
+}
+
+loadPage(1);
