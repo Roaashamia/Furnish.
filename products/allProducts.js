@@ -3,48 +3,47 @@ const closeBtn = document.getElementById("close-btn");
 const sidebar = document.getElementById("sidebar");
 
 menuBtn.addEventListener("click", () => {
-  sidebar.classList.remove("hidden");
-  sidebar.classList.add("flex");
+    sidebar.classList.remove("hidden");
+    sidebar.classList.add("flex");
 });
 
 closeBtn.addEventListener("click", () => {
-  sidebar.classList.remove("flex");
-  sidebar.classList.add("hidden");
+    sidebar.classList.remove("flex");
+    sidebar.classList.add("hidden");
 });
-
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 
 async function getData() {
-  try {
-    const res = await fetch(`https://dummyjson.com/products/${id}`);
-    if (!res.ok) throw new Error("error 404");
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+    try {
+        const res = await fetch(`https://dummyjson.com/products/5`);
+        if (!res.ok) throw new Error("error 404");
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 async function main() {
-  const product = await getData();
-  renderProductDetails(product);
+    const product = await getData();
+    renderProductDetails(product);
 }
 main();
 
 function renderProductDetails(product) {
-  const container = document.getElementById('product-container');
+    const container = document.getElementById('product-container');
 
-  if (!product) {
-    container.innerHTML = `
+    if (!product) {
+        container.innerHTML = `
       <div class="text-center text-red-600 text-xl w-full py-20">
         No details Now
       </div>`;
-    return;
-  }
+        return;
+    }
 
-  container.innerHTML = `
+    container.innerHTML = `
     <div class="flex flex-col md:flex-row items-center gap-10 w-full md:w-10/12 lg:w-9/12">
 
       <div class="flex-1 flex flex-col items-center">
@@ -93,15 +92,15 @@ function renderProductDetails(product) {
     </div>
   `;
 
-  const thumbnailsContainer = document.getElementById('thumbnailsContainer');
-  product.images.forEach(img => {
-    const thumb = document.createElement('img');
-    thumb.src = img;
-    thumb.alt = product.title;
-    thumb.className = 'w-20 h-20 object-cover rounded-md cursor-pointer border border-border hover:border-accent transition-all';
-    thumb.addEventListener('click', () => {
-      document.getElementById('mainImage').src = img;
+    const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+    product.images.forEach(img => {
+        const thumb = document.createElement('img');
+        thumb.src = img;
+        thumb.alt = product.title;
+        thumb.className = 'w-20 h-20 object-cover rounded-md cursor-pointer border border-border hover:border-accent transition-all';
+        thumb.addEventListener('click', () => {
+            document.getElementById('mainImage').src = img;
+        });
+        thumbnailsContainer.appendChild(thumb);
     });
-    thumbnailsContainer.appendChild(thumb);
-  });
 }
