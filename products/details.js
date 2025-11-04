@@ -25,7 +25,7 @@ function renderProductDetails(product) {
     if (!product) {
         container.innerHTML = `
       <div class="text-center text-red-600 text-xl w-full py-20">
-        عذرًا، هذا المنتج غير موجود.
+        No details Now
       </div>`;
         return;
     }
@@ -33,7 +33,6 @@ function renderProductDetails(product) {
     container.innerHTML = `
     <div class="flex flex-col md:flex-row items-center gap-10 w-full md:w-10/12 lg:w-9/12">
 
-      <!-- الصورة -->
       <div class="flex-1 flex flex-col items-center">
         <img id="mainImage" 
              src="${product.images?.[0]}" 
@@ -80,7 +79,6 @@ function renderProductDetails(product) {
     </div>
   `;
 
-    // الصور المصغّرة
     const thumbnailsContainer = document.getElementById('thumbnailsContainer');
     product.images.forEach(img => {
         const thumb = document.createElement('img');
