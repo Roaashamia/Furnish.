@@ -36,7 +36,7 @@ function createProductElement(product) {
     img.className = "w-auto h-52 py-4 mx-auto cursor-pointer object-cover object-center rounded-t-2xl max-w-full";
     img.src = product.images[0];
     img.addEventListener('click', () => {
-        window.location.href = `./products/details.html?id=${product?.id}`;
+        window.location.href = `./details.html?id=${product?.id}`;
     });
 
     const content = document.createElement('div');
